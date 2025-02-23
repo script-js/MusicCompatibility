@@ -20,7 +20,6 @@ async function authorize() {
     var client_secret = 'CLIENT_SECRET';
 
     var authOptions = {
-        url: 'https://accounts.spotify.com/api/token',
         headers: {
             'Authorization': 'Basic ' + btoa(client_id + ':' + client_secret)
         },
@@ -35,4 +34,7 @@ async function authorize() {
             var token = body.access_token;
         }
     });
+
+    return fetch("https://accounts.spotify.com/api/token", authOptions);
+      
 }
