@@ -1,7 +1,7 @@
 var playlists = {};
 var artists = [];
 var songs = [];
-var accessToken = "H5hqBNbEeTvlNoxCB7jv12WwNV15H96b9VlEw58IOhoP5aAHXCAOLzUcG97RA7kH"
+var accessToken = localStorage.getItem("accessToken")
 
 async function getList(list) {
 
