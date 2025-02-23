@@ -41,8 +41,8 @@ async function authorize() {
     const codeChallenge = base64encode(hashed);
 
 
-    const clientId = 'YOUR_CLIENT_ID';
-    const redirectUri = 'http://g.co';
+    const clientId = '75cbbb83721048b18a5cf0eb9e912ff7';
+    const redirectUri = 'https://musiccompatibility.pages.dev/';
 
     const scope = 'user-read-private user-read-email';
     const authUrl = new URL("https://accounts.spotify.com/authorize")
