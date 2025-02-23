@@ -16,49 +16,23 @@ async function getList(list) {
 }
 
 async function authorize() {
-    const generateRandomString = (length) => {
-        const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        const values = crypto.getRandomValues(new Uint8Array(length));
-        return values.reduce((acc, x) => acc + possible[x % possible.length], "");
-    }
+    var client_id = 'CLIENT_ID';
+    var client_secret = 'CLIENT_SECRET';
 
-    const codeVerifier = generateRandomString(64);
+    var authOptions = {
+        url: 'https://accounts.spotify.com/api/token',
+        headers: {
+            'Authorization': 'Basic ' + btoa(client_id + ':' + client_secret)
+        },
+        form: {
+            grant_type: 'client_credentials'
+        },
+        json: true
+    };
 
-    const sha256 = async (plain) => {
-        const encoder = new TextEncoder()
-        const data = encoder.encode(plain)
-        return window.crypto.subtle.digest('SHA-256', data)
-    }
-
-    const base64encode = (input) => {
-        return btoa(String.fromCharCode(...new Uint8Array(input)))
-            .replace(/=/g, '')
-            .replace(/\+/g, '-')
-            .replace(/\//g, '_');
-    }
-
-    const hashed = await sha256(codeVerifier)
-    const codeChallenge = base64encode(hashed);
-
-
-    const clientId = '75cbbb83721048b18a5cf0eb9e912ff7';
-    const redirectUri = 'https://musiccompatibility.pages.dev/auth';
-
-    const scope = 'user-read-private user-read-email';
-    const authUrl = new URL("https://accounts.spotify.com/authorize")
-
-    // generated in the previous step
-    window.localStorage.setItem('code_verifier', codeVerifier);
-
-    const params = {
-        response_type: 'code',
-        client_id: clientId,
-        scope,
-        code_challenge_method: 'S256',
-        code_challenge: codeChallenge,
-        redirect_uri: redirectUri,
-    }
-
-    authUrl.search = new URLSearchParams(params).toString();
-    window.location.href = authUrl.toString();
+    request.post(authOptions, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+            var token = body.access_token;
+        }
+    });
 }
