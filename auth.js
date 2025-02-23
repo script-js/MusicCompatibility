@@ -1,4 +1,5 @@
 const clientId = '75cbbb83721048b18a5cf0eb9e912ff7';
+const redirectUri = 'https://musiccompatibility.pages.dev/auth';
 
 async function spotifyAuth() {
     const generateRandomString = (length) => {
@@ -24,10 +25,6 @@ async function spotifyAuth() {
 
     const hashed = await sha256(codeVerifier)
     const codeChallenge = base64encode(hashed);
-
-    const redirectUri = 'https://musiccompatibility.pages.dev/auth';
-
-    const scope = '';
     const authUrl = new URL("https://accounts.spotify.com/authorize")
 
     // generated in the previous step
@@ -36,7 +33,6 @@ async function spotifyAuth() {
     const params = {
         response_type: 'code',
         client_id: clientId,
-        scope,
         code_challenge_method: 'S256',
         code_challenge: codeChallenge,
         redirect_uri: redirectUri,
