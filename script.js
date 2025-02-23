@@ -1,7 +1,7 @@
 var playlists = {};
 var artists = [];
 var songs = [];
-var accessToken = "63aa6906d3444b228c2fcd3fbf882bf0"
+var accessToken = "H5hqBNbEeTvlNoxCB7jv12WwNV15H96b9VlEw58IOhoP5aAHXCAOLzUcG97RA7kH"
 
 async function getList(list) {
 
@@ -10,31 +10,8 @@ async function getList(list) {
             Authorization: 'Bearer ' + accessToken
         }
     });
-
     var data = await response.json();
-    return data;
-}
-
-async function authorize() {
-    var client_id = 'CLIENT_ID';
-    var client_secret = 'CLIENT_SECRET';
-
-    var authOptions = {
-        headers: {
-            'Authorization': 'Basic ' + btoa(client_id + ':' + client_secret)
-        },
-        form: {
-            grant_type: 'client_credentials'
-        },
-        json: true
-    };
-
-    request.post(authOptions, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-            var token = body.access_token;
-        }
-    });
-
-    return fetch("https://accounts.spotify.com/api/token", authOptions);
-      
+    if (data.error) {
+      console.error(data.error.message)
+    }
 }
