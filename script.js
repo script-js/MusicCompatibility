@@ -13,5 +13,7 @@ async function getList(list) {
     var data = await response.json();
     if (data.error) {
       console.error(data.error.message)
+    } else {
+        console.log(data)
     }
 }
