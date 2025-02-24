@@ -32,18 +32,22 @@ async function getList(list) {
         artists: []
       };
       data.tracks.items.forEach(function (k) {
-        var id = k.track.uri.replace("spotify:track:","")
+        var id = k.track.id
         plist.tracks.push(id)
         if (!songs.includes(id)) {
-            songs.push(id)
+            songs.push({
+                id,
+                artists: k.track.artists.map((x) => x.name).toString().replace(",",", "),
+                icon: k.track.album.images[0].url,
+                title: k.track.name
+            })
         }
         k.track.artists.forEach(function(artist) {
-            var aid = artist.uri.replace("spotify:artist:","")
-            if (!plist.artists.includes(aid)) {
-              plist.artists.push(aid)
+            if (!plist.artists.includes(artist.id)) {
+              plist.artists.push(artist.id)
             }
-            if (!artists.includes(aid)) {
-                artists.push(aid)
+            if (!artists.includes(artist.id)) {
+                artists.push(artist.id)
             }
         })
       });
@@ -51,8 +55,27 @@ async function getList(list) {
     }
 }
 
-function findSameSongs() {
-    songs.forEach(function(k) {
-        
+function populateSimilar() {
+    songs.forEach(function(s) {
+        var isIn = 0;
+        playlists.forEach(function(p) {
+            if (p.tracks.includes(s.id)) {
+                isIn++;
+            }
+        })
+        if (isIn == playlists.length) {
+            similar.tracks.push(s)
+        }
+    })
+    artists.forEach(function(s) {
+        var isIn = 0;
+        playlists.forEach(function(p) {
+            if (p.artists.includes(s.id)) {
+                isIn++;
+            }
+        })
+        if (isIn == playlists.length) {
+            similar.artists.push(s)
+        }
     })
 }
