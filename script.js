@@ -78,12 +78,11 @@ function populateSimilar() {
             }
         })
         if (isIn == playlists.length) {
-            var artistData = await fetch(a.url, {
+            var artistData = await (await fetch(a.url, {
                 headers: {
                     Authorization: 'Bearer ' + accessToken
                 }
-            });
-            console.log(artistData)
+            })).json();
             similar.artists.push({
                 id: a.id,
                 name: artistData.name,
