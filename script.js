@@ -83,6 +83,7 @@ function populateSimilar() {
                     Authorization: 'Bearer ' + accessToken
                 }
             });
+            console.log(artistData)
             similar.artists.push({
                 id: a.id,
                 name: artistData.name,
