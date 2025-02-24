@@ -16,7 +16,7 @@ async function getList(list) {
     });
     var data = await response.json();
     if (data.error) {
-      if (data.error.includes("access token")) {
+      if (data.error == "The access token expired") {
         localStorage.removeItem("accessToken")
         spotifyAuth()
       } else {
