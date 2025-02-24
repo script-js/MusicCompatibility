@@ -47,7 +47,10 @@ async function getList(list) {
               plist.artists.push(artist.id)
             }
             if (!artists.includes(artist.id)) {
-                artists.push(artist.id)
+                artists.push({
+                    id: artist.id,
+                    url: artist.href
+                })
             }
         })
       });
@@ -67,15 +70,29 @@ function populateSimilar() {
             similar.tracks.push(s)
         }
     })
-    artists.forEach(function(s) {
+    artists.forEach(async function(a) {
         var isIn = 0;
         playlists.forEach(function(p) {
-            if (p.artists.includes(s.id)) {
+            if (p.artists.includes(a.id)) {
                 isIn++;
             }
         })
         if (isIn == playlists.length) {
-            similar.artists.push(s)
+            var artistData = await fetch(a.url + list, {
+                headers: {
+                    Authorization: 'Bearer ' + accessToken
+                }
+            });
+            similar.artists.push({
+                id: a.id,
+                name: artistData.name,
+                icon: a.images[0].url
+            })
+            artistData.genres.forEach(function(g) {
+                if (!similar.genres.includes(g)) {
+                    similar.genres.push(g)
+                }
+            })
         }
     })
 }
