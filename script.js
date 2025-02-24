@@ -1,6 +1,11 @@
-var playlists = {};
+var playlists = [];
 var artists = [];
 var songs = [];
+var similar = {
+   artists: [],
+   tracks: [],
+   genres: [] 
+};
 var accessToken = localStorage.getItem("accessToken")
 
 async function getList(list) {
@@ -11,7 +16,7 @@ async function getList(list) {
     });
     var data = await response.json();
     if (data.error) {
-      if (data.error == "Invalid access token.") {
+      if (data.error.includes("access token")) {
         localStorage.removeItem("accessToken")
         location.reload()
       } else {
@@ -19,7 +24,7 @@ async function getList(list) {
       }
     } else {
       console.log(data)
-      playlists[list] = {
+      var plist = {
         name: data.name,
         icon: data.images[0],
         author: data.owner.display_name,
@@ -28,19 +33,26 @@ async function getList(list) {
       };
       data.tracks.items.forEach(function (k) {
         var id = k.track.uri.replace("spotify:track:","")
-        playlists[list].tracks.push(id)
+        plist.tracks.push(id)
         if (!songs.includes(id)) {
             songs.push(id)
         }
         k.track.artists.forEach(function(artist) {
             var aid = artist.uri.replace("spotify:artist:","")
-            if (!playlists[list].artists.includes(aid)) {
-              playlists[list].artists.push(aid)
+            if (!plist.artists.includes(aid)) {
+              plist.artists.push(aid)
             }
             if (!artists.includes(aid)) {
                 artists.push(aid)
             }
         })
       });
+      playlists.push(plist)
     }
+}
+
+function findSameSongs() {
+    songs.forEach(function(k) {
+        
+    })
 }
