@@ -18,7 +18,7 @@ async function getList(list) {
     if (data.error) {
       if (data.error.includes("access token")) {
         localStorage.removeItem("accessToken")
-        location.reload()
+        spotifyAuth()
       } else {
         alert("Error getting playlist: " + data.error.message)
       }
