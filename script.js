@@ -86,7 +86,7 @@ function populateSimilar() {
             similar.artists.push({
                 id: a.id,
                 name: artistData.name,
-                icon: a.images[0].url
+                icon: artistData.images[0].url
             })
             artistData.genres.forEach(function(g) {
                 if (!similar.genres.includes(g)) {
