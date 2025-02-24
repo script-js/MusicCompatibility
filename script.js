@@ -96,3 +96,9 @@ function populateSimilar() {
         }
     })
 }
+
+function getScore() {
+   var trackCompat = (similar.tracks.length / (songs.length / 2)) * 100
+   var artistCompat = (similar.artists.length / artists.length) * 100
+   return Math.ceil((trackCompat / 2) + (artistCompat / 2))
+}
