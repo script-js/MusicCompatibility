@@ -78,7 +78,7 @@ function populateSimilar() {
             }
         })
         if (isIn == playlists.length) {
-            var artistData = await fetch(a.url + list, {
+            var artistData = await fetch(a.url, {
                 headers: {
                     Authorization: 'Bearer ' + accessToken
                 }
