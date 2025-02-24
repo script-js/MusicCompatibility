@@ -34,7 +34,7 @@ async function getList(list) {
       data.tracks.items.forEach(function (k) {
         var id = k.track.id
         plist.tracks.push(id)
-        if (!songs.includes(id)) {
+        if (!songs.map((x) => x.id).includes(id)) {
             songs.push({
                 id,
                 artists: k.track.artists.map((x) => x.name).toString().replace(",",", "),
@@ -46,7 +46,7 @@ async function getList(list) {
             if (!plist.artists.includes(artist.id)) {
               plist.artists.push(artist.id)
             }
-            if (!artists.includes(artist.id)) {
+            if (!artists.map((x) => x.id).includes(artist.id)) {
                 artists.push({
                     id: artist.id,
                     url: artist.href
