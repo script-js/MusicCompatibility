@@ -113,7 +113,6 @@ function getScore() {
             const progress = setInterval(() => {
                 startValue++;
                 progressValue.textContent = `${startValue}%`;
-                progressValue.style.color = `${progressColor}`;
 
                 progressBar.style.background = `conic-gradient(${progressColor} ${startValue * 3.6
                     }deg,${progressBar.getAttribute("data-bg-color")} 0deg)`;
