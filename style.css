@@ -2,6 +2,7 @@
 
 body {
     text-align: center;
+    background-color: #232423;
 }
 
 * {
@@ -30,7 +31,7 @@ body {
     width: calc(var(--progress-bar-width) - 30px);
     height: calc(var(--progress-bar-height) - 30px);
     border-radius: 50%;
-    background-color: red;
+    background-color: black;
   }
   
   .percentage {
