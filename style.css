@@ -38,18 +38,19 @@ body {
   
   .album-cover {
     height: 100%;
-    margin-right: 7px;
+    margin-right: 10px;
     aspect-ratio: 1 / 1;
   }
 
   .song {
-    height: 100px;
+    height: 75px;
     width: 100%;
+    align-items: center;
     display: flex;
     animation: fadein 100ms;
   }
 
-  .song.title {
+  .song .title {
     font-size: 20px;
     font-weight: bolder;
   }

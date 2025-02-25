@@ -128,7 +128,7 @@ function getScore() {
 
 function showData() {
     getScore()
-    songs.forEach(function(s) {
+    similar.tracks.forEach(function(s) {
         var elem = document.createElement("div")
         elem.classList = "song"
         elem.innerHTML = `<img class="album-cover" src="${s.icon}" /><div style="text-align:start"><span class="title">${s.title}</span><br><span class="artists">${s.artists}</span></div>`
