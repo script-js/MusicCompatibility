@@ -6,60 +6,60 @@ body {
 }
 
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
     font-family: "Rubik", system-ui, sans-serif;
-  }
-  
-  :root {
+    color: white;
+}
+
+:root {
     --progress-bar-width: 200px;
     --progress-bar-height: 200px;
     --font-size: 2rem;
-  }
-  
-  .circular-progress {
+}
+
+.circular-progress {
     width: var(--progress-bar-width);
     height: var(--progress-bar-height);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  .inner-circle {
+}
+
+.inner-circle {
     position: absolute;
     width: calc(var(--progress-bar-width) - 30px);
     height: calc(var(--progress-bar-height) - 30px);
     border-radius: 50%;
     background-color: black;
-  }
-  
-  .percentage {
+}
+
+.percentage {
     position: relative;
     font-size: var(--font-size);
     color: white;
-  }
-  
-  .album-cover {
+}
+
+.album-cover {
     height: 100%;
     margin-right: 10px;
     aspect-ratio: 1 / 1;
-  }
+}
 
-  .song {
+.song {
     height: 75px;
     width: 100%;
     align-items: center;
     display: flex;
     animation: fadein 700ms;
-  }
+}
 
-  .song .title {
+.song .title {
     font-size: 20px;
     font-weight: bolder;
-  }
+}
 
-  @keyframes fadein {
+@keyframes fadein {
     0% {
         opacity: 0;
     }
@@ -67,4 +67,9 @@ body {
     100% {
         opacity: 1;
     }
-  }
+}
+
+#samesongs {
+    float: right;
+    width: 50%;
+}
