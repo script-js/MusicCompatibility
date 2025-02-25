@@ -1,11 +1,26 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link href="style.css" rel="stylesheet" />
-        <script src="auth.js"></script>
-    </head>
-    <body>
 
-    </body>
-    <script src="script.js"></script>
+<head>
+    <meta charset="utf-8">
+    <link href="style.css" rel="stylesheet" />
+    <title>Music Compatiblilty Checker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="auth.js"></script>
+</head>
+
+<body>
+    <h1>Music Compatiblilty Checker</h1>
+    <div id="results">
+        <div class="circular-progress" data-progress-color="green" data-bg-color="red">
+            <div class="inner-circle"></div>
+            <p class="percentage">0%</p>
+        </div>
+        <div id="samesongs">
+            <h1>Same Songs</h1>
+        </div>
+    </div>
+</body>
+<script src="script.js"></script>
+
 </html>
