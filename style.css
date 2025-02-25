@@ -79,6 +79,7 @@ body {
     border-radius: 100%;
     aspect-ratio: 1 / 1;
     width: 100px;
+    margin: auto;
     display: block;
 }
 
@@ -90,4 +91,5 @@ body {
 #sameartists {
     display: flex;
     justify-content: center;
+    gap: 30px;
 }
