@@ -131,7 +131,7 @@ function showData() {
     songs.forEach(function(s) {
         var elem = document.createElement("div")
         elem.classList = "song"
-        elem.innerHTML = `<img class="album-cover" src="${s.icon}" /><span class="title">${s.title}</span><br><span class="artists">${s.artists}</span>`
+        elem.innerHTML = `<img class="album-cover" src="${s.icon}" /><div style="text-align:start"><span class="title">${s.title}</span><br><span class="artists">${s.artists}</span></div>`
         samesongs.appendChild(elem)
     })
 }
