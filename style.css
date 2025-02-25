@@ -12,8 +12,8 @@ body {
 }
 
 :root {
-    --progress-bar-width: 200px;
-    --progress-bar-height: 200px;
+    --progress-bar-width: 300px;
+    --progress-bar-height: 300px;
     --font-size: 2rem;
 }
 
@@ -72,4 +72,5 @@ body {
 #samesongs {
     float: right;
     width: 50%;
+    margin: 20px;
 }
