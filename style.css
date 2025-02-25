@@ -87,7 +87,7 @@ body {
     font-weight: bolder;
 }
 
-.artist {
+#sameartists {
     display: flex;
     justify-content: center;
 }

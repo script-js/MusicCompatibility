@@ -138,6 +138,6 @@ function showData() {
         var elem = document.createElement("div")
         elem.classList = "artist"
         elem.innerHTML = `<img class="icon" src="${a.icon}" /><div style="text-align:start"><span class="title">${a.name}</span></div>`
-        samesongs.appendChild(elem)
+        sameartists.appendChild(elem)
     })
 }
