@@ -40,7 +40,7 @@ body {
     color: white;
 }
 
-.album-cover {
+.song .icon {
     height: 100%;
     margin-right: 10px;
     aspect-ratio: 1 / 1;
@@ -56,7 +56,7 @@ body {
 
 .song .title {
     font-size: 20px;
-    font-weight: bolder;
+    font-weight: bold;
 }
 
 @keyframes fadein {
@@ -73,4 +73,21 @@ body {
     float: right;
     width: 50%;
     margin: 20px;
+}
+
+.artist .icon {
+    border-radius: 100%;
+    aspect-ratio: 1 / 1;
+    width: 100px;
+    display: block;
+}
+
+.artist .title {
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+.artist {
+    display: flex;
+    justify-content: center;
 }
