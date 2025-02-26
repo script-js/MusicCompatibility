@@ -107,19 +107,18 @@ function getScore() {
         const progressValue = progressBar.querySelector(".percentage");
         const innerCircle = progressBar.querySelector(".inner-circle");
         let startValue = 0,
-            speed = 1,
             progressColor = progressBar.getAttribute("data-progress-color");
         if (percent) {
             const progress = setInterval(() => {
                 startValue++;
-                progressValue.textContent = `${startValue}%`;
+                progressValue.textContent = `${startValue}% match`;
 
                 progressBar.style.background = `conic-gradient(${progressColor} ${startValue * 3.6
                     }deg,${progressBar.getAttribute("data-bg-color")} 0deg)`;
                 if (startValue == percent) {
                     clearInterval(progress);
                 }
-            }, speed);
+            }, 1);
         }
     });
 
