@@ -71,6 +71,7 @@ body {
 
 input {
     display: block;
+    margin: auto;
 }
 
 input,button {

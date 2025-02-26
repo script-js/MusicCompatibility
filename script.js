@@ -144,8 +144,10 @@ async function start() {
     var lists = Array.from(chooser.querySelectorAll("input"))
     for (var i = 0; i > lists.length; i++) {
         var link = lists[i].value;
+        console.log(1)
         if (link) {
-            await getList(link.replace("https://open.spotify.com/playlist/", "").replace("http://open.spotify.com/playlist/", ""))
+            console.log(2)
+            await getList(link.replace("https://open.spotify.com/playlist/", "").replace("http://open.spotify.com/playlist/", "").split("?")[0])
         }
     }
     showData()
