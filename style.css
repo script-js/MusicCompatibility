@@ -69,6 +69,14 @@ body {
     }
 }
 
+input {
+    display: block;
+}
+
+input,button {
+    color:black
+}
+
 #samesongs {
     float: right;
     width: 50%;
