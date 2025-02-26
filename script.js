@@ -125,6 +125,7 @@ function getScore() {
 }
 
 function showData() {
+    results.style.display = "block"
     getScore()
     similar.tracks.forEach(function(s) {
         var elem = document.createElement("div")
