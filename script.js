@@ -37,7 +37,7 @@ async function getList(list) {
             if (!songs.map((x) => x.id).includes(id)) {
                 songs.push({
                     id,
-                    artists: k.track.artists.map((x) => x.name).toString().replace(",", ", "),
+                    artists: k.track.artists.map((x) => x.name).toString().replaceAll(",", ", "),
                     icon: k.track.album.images[0].url,
                     title: k.track.name
                 })
@@ -58,7 +58,35 @@ async function getList(list) {
     }
 }
 
-function populateSimilar() {
+function getScore() {
+    var trackCompat = (similar.tracks.length / (songs.length / 2)) * 100
+    var artistCompat = (similar.artists.length / artists.length) * 100;
+    var percent = Math.ceil((trackCompat / 2) + (artistCompat / 2))
+    const circularProgress = document.querySelectorAll(".circular-progress");
+
+    Array.from(circularProgress).forEach((progressBar) => {
+        const progressValue = progressBar.querySelector(".percentage");
+        const innerCircle = progressBar.querySelector(".inner-circle");
+        let startValue = 0,
+            progressColor = progressBar.getAttribute("data-progress-color");
+        if (percent) {
+            const progress = setInterval(() => {
+                startValue++;
+                progressValue.textContent = `${startValue}% match`;
+
+                progressBar.style.background = `conic-gradient(${progressColor} ${startValue * 3.6
+                    }deg,${progressBar.getAttribute("data-bg-color")} 0deg)`;
+                if (startValue == percent) {
+                    clearInterval(progress);
+                }
+            }, 1);
+        }
+    });
+
+}
+
+function showData() {
+    chooser.style.display = "none"
     songs.forEach(function (s) {
         var isIn = 0;
         playlists.forEach(function (p) {
@@ -95,49 +123,36 @@ function populateSimilar() {
             })
         }
     })
-}
-
-function getScore() {
-    var trackCompat = (similar.tracks.length / (songs.length / 2)) * 100
-    var artistCompat = (similar.artists.length / artists.length) * 100;
-    var percent = Math.ceil((trackCompat / 2) + (artistCompat / 2))
-    const circularProgress = document.querySelectorAll(".circular-progress");
-
-    Array.from(circularProgress).forEach((progressBar) => {
-        const progressValue = progressBar.querySelector(".percentage");
-        const innerCircle = progressBar.querySelector(".inner-circle");
-        let startValue = 0,
-            progressColor = progressBar.getAttribute("data-progress-color");
-        if (percent) {
-            const progress = setInterval(() => {
-                startValue++;
-                progressValue.textContent = `${startValue}% match`;
-
-                progressBar.style.background = `conic-gradient(${progressColor} ${startValue * 3.6
-                    }deg,${progressBar.getAttribute("data-bg-color")} 0deg)`;
-                if (startValue == percent) {
-                    clearInterval(progress);
-                }
-            }, 1);
-        }
-    });
-
-}
-
-function showData() {
     results.style.display = "block"
     getScore()
-    similar.tracks.forEach(function(s) {
+    similar.tracks.forEach(function (s) {
         var elem = document.createElement("div")
         elem.classList = "song"
         elem.innerHTML = `<img class="icon" src="${s.icon}" /><div style="text-align:start"><span class="title">${s.title}</span><br><span class="artists">${s.artists}</span></div>`
         samesongs.appendChild(elem)
     })
 
-    similar.artists.forEach(function(a) {
+    similar.artists.forEach(function (a) {
         var elem = document.createElement("div")
         elem.classList = "artist"
         elem.innerHTML = `<img class="icon" src="${a.icon}" /><span class="title">${a.name}</span>`
         sameartists.appendChild(elem)
     })
+}
+
+async function start() {
+    var lists = Array.from(chooser.querySelectorAll("input"))
+    for (var i = 0; i > lists.length; i++) {
+        var link = lists[i].value;
+        if (link) {
+            await getList(link.replace("https://open.spotify.com/playlist/", "").replace("http://open.spotify.com/playlist/", ""))
+        }
+    }
+    showData()
+}
+
+function addList() {
+    var newip = document.createElement("input")
+    newip.placeholder = "Playlist URL"
+    inputs.appendChild(newip)
 }
