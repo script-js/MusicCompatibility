@@ -35,7 +35,7 @@ async function getList(list) {
             data.tracks.items.forEach(function (k) {
                 var id = k.track.name
                 var artists = k.track.artists.map((x) => x.name).toString().replaceAll(",", ", ")
-                playlists[index].tracks.push(id + artists)
+                plist.tracks.push(id + artists)
                 if (!songs.map((x) => x.title).includes(id)) {
                     songs.push({
                         artists,
