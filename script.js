@@ -142,9 +142,8 @@ function getScore() {
 async function showData() {
     statust.innerHTML = "Calculating compatibility..."
     progbar.value = 0
-    progbar.max = songs.length + artists.length;
+    progbar.max = 1 + artists.length;
     songs.forEach(function (s) {
-        progbar.value++;
         var isIn = 0;
         playlists.forEach(function (p) {
             if (p.tracks.includes(s.id)) {
@@ -155,6 +154,7 @@ async function showData() {
             similar.tracks.push(s)
         }
     })
+    progbar.value++;
     for (var i = 0; i < artists.length; i++) {
         progbar.value++;
         var a = artists[i]
