@@ -185,7 +185,7 @@ function showData() {
         elem.innerHTML = `<img class="icon" src="${s.icon}" /><div style="text-align:start"><span class="title">${s.title}</span><br><span class="artists">${s.artists}</span></div>`
         samesongs.appendChild(elem)
     })
-
+    console.log(similar)
     similar.artists.forEach(function (a) {
         var elem = document.createElement("div")
         elem.classList = "artist"
