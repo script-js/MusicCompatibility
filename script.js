@@ -117,24 +117,23 @@ function getScore() {
     var artistCompat = (similar.artists.length / artists.length) * 100;
     var percent = Math.ceil((trackCompat / 2) + (artistCompat / 2))
     const circularProgress = document.querySelectorAll(".circular-progress");
+    if (!percent) { percent = 0 }
 
     Array.from(circularProgress).forEach((progressBar) => {
         const progressValue = progressBar.querySelector(".percentage");
         const innerCircle = progressBar.querySelector(".inner-circle");
         let startValue = 0,
             progressColor = progressBar.getAttribute("data-progress-color");
-        if (percent) {
-            const progress = setInterval(() => {
-                startValue++;
-                progressValue.textContent = `${startValue}% match`;
+        const progress = setInterval(() => {
+            startValue++;
+            progressValue.textContent = `${startValue}% match`;
 
-                progressBar.style.background = `conic-gradient(${progressColor} ${startValue * 3.6
-                    }deg,${progressBar.getAttribute("data-bg-color")} 0deg)`;
-                if (startValue == percent) {
-                    clearInterval(progress);
-                }
-            }, 1);
-        }
+            progressBar.style.background = `conic-gradient(${progressColor} ${startValue * 3.6
+                }deg,${progressBar.getAttribute("data-bg-color")} 0deg)`;
+            if (startValue == percent) {
+                clearInterval(progress);
+            }
+        }, 1);
     });
 
 }
@@ -165,7 +164,7 @@ async function showData() {
             }
         })
         if (isIn == playlists.length) {
-            var artistData = await(await fetch(a.url, {
+            var artistData = await (await fetch(a.url, {
                 headers: {
                     Authorization: 'Bearer ' + accessToken
                 }
@@ -184,19 +183,28 @@ async function showData() {
     }
     progress.style.display = "none"
     results.style.display = "block"
-    setTimeout(getScore,500)
-    similar.tracks.forEach(function (s) {
-        var elem = document.createElement("div")
-        elem.classList = "song"
-        elem.innerHTML = `<img class="icon" src="${s.icon}" /><div style="text-align:start"><span class="title">${s.title}</span><br><span class="artists">${s.artists}</span></div>`
-        samesongs.appendChild(elem)
-    })
-    similar.artists.forEach(function (a) {
-        var elem = document.createElement("div")
-        elem.classList = "artist"
-        elem.innerHTML = `<img class="icon" src="${a.icon}" /><span class="title">${a.name}</span>`
-        sameartists.appendChild(elem)
-    })
+    setTimeout(getScore, 500)
+    if (similar.tracks.length > 0) {
+        similar.tracks.forEach(function (s) {
+            var elem = document.createElement("div")
+            elem.classList = "song"
+            elem.innerHTML = `<img class="icon" src="${s.icon}" /><div style="text-align:start"><span class="title">${s.title}</span><br><span class="artists">${s.artists}</span></div>`
+            samesongs.appendChild(elem)
+        })
+    } else {
+        samesongs.innerHTML = "You don't like any of the same tracks"
+    }
+    if (similar.artists.length > 0) {
+        similar.artists.forEach(function (a) {
+            var elem = document.createElement("div")
+            elem.classList = "artist"
+            elem.innerHTML = `<img class="icon" src="${a.icon}" /><span class="title">${a.name}</span>`
+            sameartists.appendChild(elem)
+        })
+    } else {
+        sameartists.innerHTML = "You don't like any of the same artists"
+        samegenres.innerHTML = "nothing"
+    }
     similar.genres.forEach(function (g) {
         var elem = document.createElement("div")
         elem.classList = "genre"
