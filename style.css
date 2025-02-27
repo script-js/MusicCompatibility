@@ -20,6 +20,7 @@ body {
 .circular-progress {
     width: var(--progress-bar-width);
     height: var(--progress-bar-height);
+    margin: auto;
     border-radius: 50%;
     display: flex;
     justify-content: center;
