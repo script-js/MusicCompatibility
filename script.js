@@ -139,7 +139,7 @@ function getScore() {
 
 }
 
-function showData() {
+async function showData() {
     chooser.style.display = "none"
     songs.forEach(function (s) {
         var isIn = 0;
@@ -178,21 +178,20 @@ function showData() {
             })
         }
     }
-}
-results.style.display = "block"
-getScore()
-similar.tracks.forEach(function (s) {
-    var elem = document.createElement("div")
-    elem.classList = "song"
-    elem.innerHTML = `<img class="icon" src="${s.icon}" /><div style="text-align:start"><span class="title">${s.title}</span><br><span class="artists">${s.artists}</span></div>`
-    samesongs.appendChild(elem)
-})
-similar.artists.forEach(function (a) {
-    var elem = document.createElement("div")
-    elem.classList = "artist"
-    elem.innerHTML = `<img class="icon" src="${a.icon}" /><span class="title">${a.name}</span>`
-    sameartists.appendChild(elem)
-})
+    results.style.display = "block"
+    getScore()
+    similar.tracks.forEach(function (s) {
+        var elem = document.createElement("div")
+        elem.classList = "song"
+        elem.innerHTML = `<img class="icon" src="${s.icon}" /><div style="text-align:start"><span class="title">${s.title}</span><br><span class="artists">${s.artists}</span></div>`
+        samesongs.appendChild(elem)
+    })
+    similar.artists.forEach(function (a) {
+        var elem = document.createElement("div")
+        elem.classList = "artist"
+        elem.innerHTML = `<img class="icon" src="${a.icon}" /><span class="title">${a.name}</span>`
+        sameartists.appendChild(elem)
+    })
 }
 
 async function start() {
