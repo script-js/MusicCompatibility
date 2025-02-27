@@ -32,6 +32,7 @@ async function getList(list) {
                 tracks: [],
                 artists: []
             };
+            console.log(data.tracks.next)
             data.tracks.items.forEach(function (k) {
                 var id = k.track.id
                 plist.tracks.push(id)
@@ -56,7 +57,6 @@ async function getList(list) {
                 })
             });
             playlists.push(plist)
-            console.log(data.tracks.next)
             if (data.tracks.next) {
                 console.log(data.tracks.next)
                 await getPage(data.tracks.next, playlists.length - 1)
