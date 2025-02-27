@@ -65,11 +65,17 @@ async function getToken() {
 
         var body = await fetch(url, payload);
         var response = await body.json();
-        alert(JSON.stringify(response))
 
         localStorage.setItem('accessToken', response.access_token);
+        localStorage.setItem('tokenExpires',Date.now() + (response.expires_in - 20))
         location.replace("/")
     } else {
         document.body.innerHTML = "<h1 style='text-align:center'>No authorization code</h1>"
     }
+}
+
+if (Number(localStorage.getItem("tokenExpires")) < Date.now()) {
+    localStorage.removeItem("accessToken")
+    localStorage.removeItem("tokenExpires")
+    location.reload()
 }
