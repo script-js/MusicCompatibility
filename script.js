@@ -25,7 +25,6 @@ async function getList(list) {
             }
         } else {
             console.log(data)
-            console.log(data.tracks.next)
             var plist = {
                 name: data.name,
                 icon: data.images[0],
@@ -58,7 +57,6 @@ async function getList(list) {
             });
             playlists.push(plist)
             if (data.tracks.next) {
-                console.log(data.tracks.next)
                 await getPage(data.tracks.next, playlists.length - 1)
             }
             resolve()
@@ -205,7 +203,7 @@ async function start() {
             await getList(link.replace("https://open.spotify.com/playlist/", "").replace("http://open.spotify.com/playlist/", "").split("?")[0])
         }
     }
-    setTimeout(showData,1)
+    setTimeout(showData,3)
 }
 
 function addList() {
