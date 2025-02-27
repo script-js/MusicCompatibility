@@ -65,6 +65,7 @@ async function getToken() {
 
         var body = await fetch(url, payload);
         var response = await body.json();
+        alert(JSON.stringify(response))
 
         localStorage.setItem('accessToken', response.access_token);
         location.replace("/")
