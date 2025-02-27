@@ -33,14 +33,14 @@ async function getList(list) {
                 artists: []
             };
             data.tracks.items.forEach(function (k) {
-                var id = k.track.id
-                plist.tracks.push(id)
-                if (!songs.map((x) => x.id).includes(id)) {
+                var id = k.track.name
+                var artists = k.track.artists.map((x) => x.name).toString().replaceAll(",", ", ")
+                playlists[index].tracks.push(id + artists)
+                if (!songs.map((x) => x.title).includes(id)) {
                     songs.push({
-                        id,
-                        artists: k.track.artists.map((x) => x.name).toString().replaceAll(",", ", "),
+                        artists,
                         icon: k.track.album.images[0].url,
-                        title: k.track.name
+                        title: id
                     })
                 }
                 k.track.artists.forEach(function (artist) {
@@ -82,14 +82,14 @@ async function getPage(url, index) {
         } else {
             console.log(data)
             data.items.forEach(function (k) {
-                var id = k.track.id
-                playlists[index].tracks.push(id)
-                if (!songs.map((x) => x.id).includes(id)) {
+                var id = k.track.name
+                var artists = k.track.artists.map((x) => x.name).toString().replaceAll(",", ", ")
+                playlists[index].tracks.push(id + artists)
+                if (!songs.map((x) => x.title).includes(id)) {
                     songs.push({
-                        id,
-                        artists: k.track.artists.map((x) => x.name).toString().replaceAll(",", ", "),
+                        artists,
                         icon: k.track.album.images[0].url,
-                        title: k.track.name
+                        title: id
                     })
                 }
                 k.track.artists.forEach(function (artist) {
@@ -146,7 +146,7 @@ async function showData() {
     songs.forEach(function (s) {
         var isIn = 0;
         playlists.forEach(function (p) {
-            if (p.tracks.includes(s.id)) {
+            if (p.tracks.includes(s.title + s.artists)) {
                 isIn++;
             }
         })
