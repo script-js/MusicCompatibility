@@ -73,7 +73,7 @@ async function getToken() {
         document.body.innerHTML = "<h1 style='text-align:center'>No authorization code</h1>"
     }
 }
-console.log(Number(localStorage.getItem("tokenExpires")))
+
 if (localStorage.getItem("tokenExpires") && Number(localStorage.getItem("tokenExpires")) > Date.now()) {
     localStorage.removeItem("accessToken")
     localStorage.removeItem("tokenExpires")
