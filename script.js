@@ -141,7 +141,7 @@ function getScore() {
 
 function showData() {
     chooser.style.display = "none"
-    songs.forEach(function (s, i, arr) {
+    songs.forEach(function (s) {
         var isIn = 0;
         playlists.forEach(function (p) {
             if (p.tracks.includes(s.id)) {
@@ -151,16 +151,9 @@ function showData() {
         if (isIn == playlists.length) {
             similar.tracks.push(s)
         }
-        if (i == arr.length - 1) {
-            similar.tracks.forEach(function (s) {
-                var elem = document.createElement("div")
-                elem.classList = "song"
-                elem.innerHTML = `<img class="icon" src="${s.icon}" /><div style="text-align:start"><span class="title">${s.title}</span><br><span class="artists">${s.artists}</span></div>`
-                samesongs.appendChild(elem)
-            })
-        }
     })
-    artists.forEach(async function (a, i, arr) {
+    for (var i = 0; i < artists.length; i++) {
+        var a = artists[i]
         var isIn = 0;
         playlists.forEach(function (p) {
             if (p.artists.includes(a.id)) {
@@ -184,17 +177,21 @@ function showData() {
                 }
             })
         }
-        if (i == arr.length - 1) {
-            similar.artists.forEach(function (a) {
-                var elem = document.createElement("div")
-                elem.classList = "artist"
-                elem.innerHTML = `<img class="icon" src="${a.icon}" /><span class="title">${a.name}</span>`
-                sameartists.appendChild(elem)
-            })
-            getScore()
-        }
-    })
+    }
     results.style.display = "block"
+    getScore()
+    similar.tracks.forEach(function (s) {
+        var elem = document.createElement("div")
+        elem.classList = "song"
+        elem.innerHTML = `<img class="icon" src="${s.icon}" /><div style="text-align:start"><span class="title">${s.title}</span><br><span class="artists">${s.artists}</span></div>`
+        samesongs.appendChild(elem)
+    })
+    similar.artists.forEach(function (a) {
+        var elem = document.createElement("div")
+        elem.classList = "artist"
+        elem.innerHTML = `<img class="icon" src="${a.icon}" /><span class="title">${a.name}</span>`
+        sameartists.appendChild(elem)
+    })
 }
 
 async function start() {
@@ -206,7 +203,7 @@ async function start() {
             await getList(link.replace("https://open.spotify.com/playlist/", "").replace("http://open.spotify.com/playlist/", "").split("?")[0])
         }
     }
-    setTimeout(showData, 3)
+    setTimeout(showData,3)
 }
 
 function addList() {
