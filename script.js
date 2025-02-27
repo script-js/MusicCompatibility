@@ -57,14 +57,15 @@ async function getList(list) {
             });
             playlists.push(plist)
             if (data.tracks.next) {
-                await getPage(data.tracks.next,playlists.length - 1)
+                console.log(data.tracks.next)
+                await getPage(data.tracks.next, playlists.length - 1)
             }
             resolve()
         }
     })
 }
 
-async function getPage(url,index) {
+async function getPage(url, index) {
     return new Promise(async function (resolve) {
         var response = await fetch(url, {
             headers: {
@@ -104,6 +105,10 @@ async function getPage(url,index) {
                     }
                 })
             });
+            if (data.tracks.next) {
+                console.log(data.tracks.next)
+                await getPage(data.tracks.next, playlists.length - 1)
+            }
             resolve()
         }
     })
