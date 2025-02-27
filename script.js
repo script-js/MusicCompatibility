@@ -9,53 +9,56 @@ var similar = {
 var accessToken = localStorage.getItem("accessToken")
 
 async function getList(list) {
-    var response = await fetch('https://api.spotify.com/v1/playlists/' + list, {
-        headers: {
-            Authorization: 'Bearer ' + accessToken
-        }
-    });
-    var data = await response.json();
-    if (data.error) {
-        if (data.error == "The access token expired") {
-            localStorage.removeItem("accessToken")
-            spotifyAuth()
-        } else {
-            alert("Error getting playlist: " + data.error.message)
-        }
-    } else {
-        console.log(data)
-        var plist = {
-            name: data.name,
-            icon: data.images[0],
-            author: data.owner.display_name,
-            tracks: [],
-            artists: []
-        };
-        data.tracks.items.forEach(function (k) {
-            var id = k.track.id
-            plist.tracks.push(id)
-            if (!songs.map((x) => x.id).includes(id)) {
-                songs.push({
-                    id,
-                    artists: k.track.artists.map((x) => x.name).toString().replaceAll(",", ", "),
-                    icon: k.track.album.images[0].url,
-                    title: k.track.name
-                })
+    return new Promise(async function (resolve) {
+        var response = await fetch('https://api.spotify.com/v1/playlists/' + list, {
+            headers: {
+                Authorization: 'Bearer ' + accessToken
             }
-            k.track.artists.forEach(function (artist) {
-                if (!plist.artists.includes(artist.id)) {
-                    plist.artists.push(artist.id)
-                }
-                if (!artists.map((x) => x.id).includes(artist.id)) {
-                    artists.push({
-                        id: artist.id,
-                        url: artist.href
+        });
+        var data = await response.json();
+        if (data.error) {
+            if (data.error == "The access token expired") {
+                localStorage.removeItem("accessToken")
+                spotifyAuth()
+            } else {
+                alert("Error getting playlist: " + data.error.message)
+            }
+        } else {
+            console.log(data)
+            var plist = {
+                name: data.name,
+                icon: data.images[0],
+                author: data.owner.display_name,
+                tracks: [],
+                artists: []
+            };
+            data.tracks.items.forEach(function (k) {
+                var id = k.track.id
+                plist.tracks.push(id)
+                if (!songs.map((x) => x.id).includes(id)) {
+                    songs.push({
+                        id,
+                        artists: k.track.artists.map((x) => x.name).toString().replaceAll(",", ", "),
+                        icon: k.track.album.images[0].url,
+                        title: k.track.name
                     })
                 }
-            })
-        });
-        playlists.push(plist)
-    }
+                k.track.artists.forEach(function (artist) {
+                    if (!plist.artists.includes(artist.id)) {
+                        plist.artists.push(artist.id)
+                    }
+                    if (!artists.map((x) => x.id).includes(artist.id)) {
+                        artists.push({
+                            id: artist.id,
+                            url: artist.href
+                        })
+                    }
+                })
+            });
+            playlists.push(plist)
+            resolve()
+        }
+    })
 }
 
 function getScore() {
@@ -145,9 +148,7 @@ async function start() {
     console.log(0)
     for (var i = 0; i < lists.length; i++) {
         var link = lists[i].value;
-        console.log(1)
         if (link) {
-            console.log(2)
             await getList(link.replace("https://open.spotify.com/playlist/", "").replace("http://open.spotify.com/playlist/", "").split("?")[0])
         }
     }
