@@ -123,5 +123,8 @@ input,button {
 .genre {
     background-color: #141414;
     border-radius: 30px;
-    padding: 5px;
+    padding: 10px;
+    width: fit-content;
+    display: inline-block;
+    margin: 3px;
 }
