@@ -105,6 +105,7 @@ async function getPage(url, index) {
                     }
                 })
             });
+            console.log(data.tracks.next)
             if (data.tracks.next) {
                 console.log(data.tracks.next)
                 await getPage(data.tracks.next, playlists.length - 1)
