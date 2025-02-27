@@ -96,13 +96,13 @@ body {
 input {
     display: block;
     margin: auto;
-    border-radius: 10px;
 }
 
 input,button {
     background-color: #141414;
     border: 1px solid white;
     padding: 10px;
+    border-radius: 10px;
 }
 
 #samesongs {
@@ -145,6 +145,9 @@ input,button {
 }
 
 button {
-    border-radius: 20px;
     cursor: pointer;
+}
+
+.loginBtn {
+    border-radius: 20px;
 }
