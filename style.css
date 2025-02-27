@@ -70,6 +70,17 @@ body {
     }
 }
 
+@keyframes loadin {
+    0% {
+        opacity: 0;
+        transform: translate(0,10%);
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
 input {
     display: block;
     margin: auto;
@@ -103,4 +114,8 @@ input,button {
     width: fit-content;
     margin: 30px;
     animation: fadein 1s;
+}
+
+#results {
+    animation: loadin 200ms;
 }
