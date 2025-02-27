@@ -59,6 +59,10 @@ async function getList(list) {
             if (data.tracks.next) {
                 await getPage(data.tracks.next, playlists.length - 1)
             }
+                var elem = document.createElement("div")
+                elem.classList = "song"
+                elem.innerHTML = `<img class="icon" src="${plist.icon}" /><div style="text-align:start"><span class="title">${plist.name}</span><br><span class="artists">${plist.author}</span></div>`
+                listViewer.appendChild(elem)
             resolve()
         }
     })
