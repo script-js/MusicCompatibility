@@ -178,7 +178,7 @@ async function showData() {
         }
     }
     results.style.display = "block"
-    setTimeout(getScore,400)
+    setTimeout(getScore,500)
     similar.tracks.forEach(function (s) {
         var elem = document.createElement("div")
         elem.classList = "song"
