@@ -27,7 +27,7 @@ async function getList(list) {
             console.log(data)
             var plist = {
                 name: data.name,
-                icon: data.images[0],
+                icon: data.images[0].url,
                 author: data.owner.display_name,
                 tracks: [],
                 artists: []
@@ -60,7 +60,7 @@ async function getList(list) {
                 await getPage(data.tracks.next, playlists.length - 1)
             }
                 var elem = document.createElement("div")
-                elem.classList = "song"
+                elem.classList = "playlist"
                 elem.innerHTML = `<img class="icon" src="${plist.icon}" /><div style="text-align:start"><span class="title">${plist.name}</span><br><span class="artists">${plist.author}</span></div>`
                 listViewer.appendChild(elem)
             resolve()
