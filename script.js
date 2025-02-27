@@ -56,6 +56,7 @@ async function getList(list) {
                 })
             });
             playlists.push(plist)
+            console.log(data.tracks.next)
             if (data.tracks.next) {
                 console.log(data.tracks.next)
                 await getPage(data.tracks.next, playlists.length - 1)
@@ -105,9 +106,7 @@ async function getPage(url, index) {
                     }
                 })
             });
-            console.log(data.tracks.next)
             if (data.tracks.next) {
-                console.log(data.tracks.next)
                 await getPage(data.tracks.next, playlists.length - 1)
             }
             resolve()
