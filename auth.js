@@ -74,7 +74,7 @@ async function getToken() {
     }
 }
 
-if (localStorage.getItem("tokenExpires") && Number(localStorage.getItem("tokenExpires")) > Date.now()) {
+if (localStorage.getItem("tokenExpires") && Number(localStorage.getItem("tokenExpires")) < Date.now()) {
     localStorage.removeItem("accessToken")
     localStorage.removeItem("tokenExpires")
     location.reload()
