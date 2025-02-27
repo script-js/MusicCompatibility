@@ -6,7 +6,7 @@ var similar = {
     tracks: [],
     genres: []
 };
-var accessToken = localStorage.getItem("accessToken")
+var accessToken = sessionStorage.getItem("accessToken")
 
 if (!accessToken) {
     chooser.innerHTML = `<button onclick="spotifyAuth()" class="loginBtn">
@@ -26,7 +26,7 @@ async function getList(list) {
         var data = await response.json();
         if (data.error) {
             if (data.error == "The access token expired") {
-                localStorage.removeItem("accessToken")
+                sessionStorage.removeItem("accessToken")
                 spotifyAuth()
             } else {
                 alert("Error getting playlist: " + data.error.message)
@@ -86,7 +86,7 @@ async function getPage(url, index) {
         var data = await response.json();
         if (data.error) {
             if (data.error == "The access token expired") {
-                localStorage.removeItem("accessToken")
+                sessionStorage.removeItem("accessToken")
                 spotifyAuth()
             } else {
                 alert("Error getting playlist: " + data.error.message)
