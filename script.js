@@ -140,7 +140,11 @@ function getScore() {
 }
 
 async function showData() {
+    statust.innerHTML = "Calculating compatibility..."
+    progbar.value = 0
+    progbar.max = songs.length + artists.length;
     songs.forEach(function (s) {
+        progbar.value++;
         var isIn = 0;
         playlists.forEach(function (p) {
             if (p.tracks.includes(s.id)) {
@@ -152,6 +156,7 @@ async function showData() {
         }
     })
     for (var i = 0; i < artists.length; i++) {
+        progbar.value++;
         var a = artists[i]
         var isIn = 0;
         playlists.forEach(function (p) {
@@ -177,6 +182,7 @@ async function showData() {
             })
         }
     }
+    progress.style.display = "none"
     results.style.display = "block"
     setTimeout(getScore,500)
     similar.tracks.forEach(function (s) {
@@ -201,12 +207,14 @@ async function showData() {
 
 async function start() {
     chooser.style.display = "none"
+    progress.style.display = "block"
     var lists = Array.from(chooser.querySelectorAll("input"));
-    console.log(0)
+    progbar.max = lists.length
     for (var i = 0; i < lists.length; i++) {
         var link = lists[i].value;
         if (link) {
             await getList(link.replace("https://open.spotify.com/playlist/", "").replace("http://open.spotify.com/playlist/", "").split("?")[0])
+            progbar.value++;
         }
     }
     setTimeout(showData, 3)
