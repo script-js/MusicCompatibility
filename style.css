@@ -58,6 +58,8 @@ body {
 .playlist {
     width: fit-content;
     display: inline-flex;
+    margin-right: 10px;
+    height: 50px;
 }
 
 #listViewer {
