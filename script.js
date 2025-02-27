@@ -118,6 +118,7 @@ function getScore() {
     var percent = Math.ceil((trackCompat / 2) + (artistCompat / 2))
     const circularProgress = document.querySelectorAll(".circular-progress");
     if (!percent) { percent = 0 }
+    console.log(percent)
 
     Array.from(circularProgress).forEach((progressBar) => {
         const progressValue = progressBar.querySelector(".percentage");
@@ -192,7 +193,7 @@ async function showData() {
             samesongs.appendChild(elem)
         })
     } else {
-        samesongs.innerHTML = "You don't like any of the same tracks"
+        samesongs.innerHTML = "<h1>Songs</h1>You don't like any of the same songs"
     }
     if (similar.artists.length > 0) {
         similar.artists.forEach(function (a) {
