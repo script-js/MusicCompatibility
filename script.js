@@ -35,7 +35,7 @@ async function getList(list) {
             data.tracks.items.forEach(function (k) {
                 var id = k.track.name
                 var artistString = k.track.artists.map((x) => x.name).toString().replaceAll(",", ", ")
-                plist.tracks.push(id + artists)
+                plist.tracks.push(id + artistString)
                 if (!songs.map((x) => x.title).includes(id)) {
                     songs.push({
                         artists: artistString,
@@ -84,7 +84,7 @@ async function getPage(url, index) {
             data.items.forEach(function (k) {
                 var id = k.track.name
                 var artistString = k.track.artists.map((x) => x.name).toString().replaceAll(",", ", ")
-                playlists[index].tracks.push(id + artists)
+                playlists[index].tracks.push(id + artistString)
                 if (!songs.map((x) => x.title).includes(id)) {
                     songs.push({
                         artists: artistString,
