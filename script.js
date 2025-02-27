@@ -161,7 +161,7 @@ function showData() {
             }
         })
         if (isIn == playlists.length) {
-            var artistData = await (await fetch(a.url, {
+            var artistData = await(await fetch(a.url, {
                 headers: {
                     Authorization: 'Bearer ' + accessToken
                 }
@@ -178,20 +178,21 @@ function showData() {
             })
         }
     }
-    results.style.display = "block"
-    getScore()
-    similar.tracks.forEach(function (s) {
-        var elem = document.createElement("div")
-        elem.classList = "song"
-        elem.innerHTML = `<img class="icon" src="${s.icon}" /><div style="text-align:start"><span class="title">${s.title}</span><br><span class="artists">${s.artists}</span></div>`
-        samesongs.appendChild(elem)
-    })
-    similar.artists.forEach(function (a) {
-        var elem = document.createElement("div")
-        elem.classList = "artist"
-        elem.innerHTML = `<img class="icon" src="${a.icon}" /><span class="title">${a.name}</span>`
-        sameartists.appendChild(elem)
-    })
+}
+results.style.display = "block"
+getScore()
+similar.tracks.forEach(function (s) {
+    var elem = document.createElement("div")
+    elem.classList = "song"
+    elem.innerHTML = `<img class="icon" src="${s.icon}" /><div style="text-align:start"><span class="title">${s.title}</span><br><span class="artists">${s.artists}</span></div>`
+    samesongs.appendChild(elem)
+})
+similar.artists.forEach(function (a) {
+    var elem = document.createElement("div")
+    elem.classList = "artist"
+    elem.innerHTML = `<img class="icon" src="${a.icon}" /><span class="title">${a.name}</span>`
+    sameartists.appendChild(elem)
+})
 }
 
 async function start() {
@@ -203,7 +204,7 @@ async function start() {
             await getList(link.replace("https://open.spotify.com/playlist/", "").replace("http://open.spotify.com/playlist/", "").split("?")[0])
         }
     }
-    setTimeout(showData,3)
+    setTimeout(showData, 3)
 }
 
 function addList() {
