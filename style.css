@@ -116,6 +116,7 @@ input,button {
     border: 1px solid white;
     padding: 10px;
     border-radius: 10px;
+    margin-bottom: 10px;
 }
 
 #samesongs {
