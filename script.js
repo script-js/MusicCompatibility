@@ -140,7 +140,6 @@ function getScore() {
 }
 
 async function showData() {
-    chooser.style.display = "none"
     songs.forEach(function (s) {
         var isIn = 0;
         playlists.forEach(function (p) {
@@ -195,6 +194,7 @@ async function showData() {
 }
 
 async function start() {
+    chooser.style.display = "none"
     var lists = Array.from(chooser.querySelectorAll("input"));
     console.log(0)
     for (var i = 0; i < lists.length; i++) {
