@@ -32,7 +32,7 @@ body {
     width: calc(var(--progress-bar-width) - 30px);
     height: calc(var(--progress-bar-height) - 30px);
     border-radius: 50%;
-    background-color: black;
+    background-color: #141414;
 }
 
 .percentage {
@@ -118,4 +118,10 @@ input,button {
 
 #results {
     animation: loadin 500ms ease-out;
+}
+
+.genre {
+    background-color: #141414;
+    border-radius: 30px;
+    padding: 5px;
 }

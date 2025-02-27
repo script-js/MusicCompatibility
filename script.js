@@ -191,6 +191,12 @@ async function showData() {
         elem.innerHTML = `<img class="icon" src="${a.icon}" /><span class="title">${a.name}</span>`
         sameartists.appendChild(elem)
     })
+    similar.genres.forEach(function (g) {
+        var elem = document.createElement("div")
+        elem.classList = "genre"
+        elem.innerHTML = g
+        samegenres.appendChild(elem)
+    })
 }
 
 async function start() {
