@@ -143,7 +143,7 @@ function showData() {
 async function start() {
     var lists = Array.from(chooser.querySelectorAll("input"));
     console.log(0)
-    for (var i = 0; i > lists.length; i++) {
+    for (var i = 0; i < lists.length; i++) {
         var link = lists[i].value;
         console.log(1)
         if (link) {
