@@ -126,7 +126,6 @@ function getScore() {
         let startValue = 0,
             progressColor = progressBar.getAttribute("data-progress-color");
         const progress = setInterval(() => {
-            startValue++;
             progressValue.textContent = `${startValue}% match`;
 
             progressBar.style.background = `conic-gradient(${progressColor} ${startValue * 3.6
@@ -134,6 +133,7 @@ function getScore() {
             if (startValue == percent) {
                 clearInterval(progress);
             }
+            startValue++;
         }, 1);
     });
 
