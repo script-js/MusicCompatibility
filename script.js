@@ -205,7 +205,7 @@ async function start() {
             await getList(link.replace("https://open.spotify.com/playlist/", "").replace("http://open.spotify.com/playlist/", "").split("?")[0])
         }
     }
-    showData()
+    setTimeout(showData,1)
 }
 
 function addList() {
