@@ -25,6 +25,7 @@ async function getList(list) {
             }
         } else {
             console.log(data)
+            console.log(data.tracks.next)
             var plist = {
                 name: data.name,
                 icon: data.images[0],
@@ -32,7 +33,6 @@ async function getList(list) {
                 tracks: [],
                 artists: []
             };
-            console.log(data.tracks.next)
             data.tracks.items.forEach(function (k) {
                 var id = k.track.id
                 plist.tracks.push(id)
@@ -83,7 +83,7 @@ async function getPage(url, index) {
             }
         } else {
             console.log(data)
-            data.tracks.items.forEach(function (k) {
+            data.items.forEach(function (k) {
                 var id = k.track.id
                 playlists[index].tracks.push(id)
                 if (!songs.map((x) => x.id).includes(id)) {
@@ -106,62 +106,9 @@ async function getPage(url, index) {
                     }
                 })
             });
-            if (data.tracks.next) {
-                await getPage(data.tracks.next, playlists.length - 1)
+            if (data.next) {
+                await getPage(data.next, playlists.length - 1)
             }
-            resolve()
-        }
-    })
-}
-
-async function getList(list) {
-    return new Promise(async function (resolve) {
-        var response = await fetch('https://api.spotify.com/v1/playlists/' + list, {
-            headers: {
-                Authorization: 'Bearer ' + accessToken
-            }
-        });
-        var data = await response.json();
-        if (data.error) {
-            if (data.error == "The access token expired") {
-                localStorage.removeItem("accessToken")
-                spotifyAuth()
-            } else {
-                alert("Error getting playlist: " + data.error.message)
-            }
-        } else {
-            console.log(data)
-            var plist = {
-                name: data.name,
-                icon: data.images[0],
-                author: data.owner.display_name,
-                tracks: [],
-                artists: []
-            };
-            data.tracks.items.forEach(function (k) {
-                var id = k.track.id
-                plist.tracks.push(id)
-                if (!songs.map((x) => x.id).includes(id)) {
-                    songs.push({
-                        id,
-                        artists: k.track.artists.map((x) => x.name).toString().replaceAll(",", ", "),
-                        icon: k.track.album.images[0].url,
-                        title: k.track.name
-                    })
-                }
-                k.track.artists.forEach(function (artist) {
-                    if (!plist.artists.includes(artist.id)) {
-                        plist.artists.push(artist.id)
-                    }
-                    if (!artists.map((x) => x.id).includes(artist.id)) {
-                        artists.push({
-                            id: artist.id,
-                            url: artist.href
-                        })
-                    }
-                })
-            });
-            playlists.push(plist)
             resolve()
         }
     })
