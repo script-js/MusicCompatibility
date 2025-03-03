@@ -6,7 +6,7 @@ var similar = {
     tracks: [],
     genres: []
 };
-var accessToken = sessionStorage.getItem("accessToken")
+var accessToken = localStorage.getItem("accessToken")
 
 if (!accessToken) {
     chooser.innerHTML = `<button onclick="spotifyAuth()" class="loginBtn">
