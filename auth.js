@@ -72,8 +72,3 @@ async function getToken() {
         document.body.innerHTML = "<h1 style='text-align:center'>No authorization code</h1>"
     }
 }
-
-function removeAccessToken() {
-    localStorage.removeItem("accessToken")
-    location.reload()
-}
