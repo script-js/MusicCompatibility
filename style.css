@@ -85,7 +85,7 @@ body {
 
 .playlist.header {
     border-bottom: 1px solid white;
-    display: block;
+    display: flex;
 }
 
 
@@ -146,7 +146,7 @@ input,button {
 .artist {
     display: inline-block;
     width: fit-content;
-    margin: 30px;
+    padding: 30px;
     animation: fadein 1.5s;
     cursor: pointer;
     border-radius: 20px;

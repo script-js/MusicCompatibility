@@ -34,6 +34,7 @@ async function getList(list) {
         } else {
             console.log(data)
             var plist = {
+                id: list,
                 name: data.name,
                 icon: data.images[0].url,
                 author: data.owner.display_name,
@@ -48,7 +49,8 @@ async function getList(list) {
                     songs.push({
                         artists: artistString,
                         icon: k.track.album.images[0].url,
-                        title: id
+                        title: id,
+                        list
                     })
                 }
                 k.track.artists.forEach(function (artist) {
@@ -101,7 +103,8 @@ async function getPage(url, index) {
                     songs.push({
                         artists: artistString,
                         icon: k.track.album.images[0].url,
-                        title: id
+                        title: id,
+                        list
                     })
                 }
                 k.track.artists.forEach(function (artist) {
@@ -257,7 +260,8 @@ function showArtistSongs(elem) {
         header.classList = "playlist header"
         header.innerHTML = `<img class="icon" src="${p.icon}" /><div style="text-align:start"><span class="title">${p.name}</span><br><span class="artists">${p.author}</span></div>`
         samesongs.appendChild(header)
-        p.tracks.forEach(function(s) {
+        songs.forEach(function(s) {
+            if (s.list == p.id && s.artists.includes(artistName))
             var song = document.createElement("div")
             song.classList = "song"
             song.innerHTML = `<img class="icon" src="${s.icon}" /><div style="text-align:start"><span class="title">${s.title}</span><br><span class="artists">${s.artists}</span></div>`
