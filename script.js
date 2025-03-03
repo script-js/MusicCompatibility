@@ -198,12 +198,7 @@ async function showData() {
     results.style.display = "block"
     setTimeout(getScore, 500)
     if (similar.tracks.length > 0) {
-        similar.tracks.forEach(function (s) {
-            var elem = document.createElement("div")
-            elem.classList = "song"
-            elem.innerHTML = `<img class="icon" src="${s.icon}" /><div style="text-align:start"><span class="title">${s.title}</span><br><span class="artists">${s.artists}</span></div>`
-            samesongs.appendChild(elem)
-        })
+        showTracks()
     } else {
         samesongs.innerHTML = "<h1>Songs</h1>You don't like any of the same songs"
     }
@@ -211,6 +206,7 @@ async function showData() {
         similar.artists.forEach(function (a) {
             var elem = document.createElement("div")
             elem.classList = "artist"
+            elem.onclick = function() {showArtistSongs(this)}
             elem.innerHTML = `<img class="icon" src="${a.icon}" /><span class="title">${a.name}</span>`
             sameartists.appendChild(elem)
         })
@@ -245,4 +241,37 @@ function addList() {
     var newip = document.createElement("input")
     newip.placeholder = "Playlist URL"
     inputs.appendChild(newip)
+}
+
+function showArtistSongs(elem) {
+    var artistName = elem.querySelector(".title").innerText;
+    elem.classList = "artist selected"
+    elem.onclick = function() {
+        showTracks()
+        elem.onclick = function() {showArtistSongs(elem)}
+        elem.classList = "artist"
+    }
+    samesongs.innerHTML = "";
+    playlists.forEach(function(p) {
+        var header = document.createElement("div")
+        header.classList = "playlist header"
+        header.innerHTML = `<img class="icon" src="${p.icon}" /><div style="text-align:start"><span class="title">${p.name}</span><br><span class="artists">${p.author}</span></div>`
+        samesongs.appendChild(header)
+        p.tracks.forEach(function(s) {
+            var song = document.createElement("div")
+            song.classList = "song"
+            song.innerHTML = `<img class="icon" src="${s.icon}" /><div style="text-align:start"><span class="title">${s.title}</span><br><span class="artists">${s.artists}</span></div>`
+            samesongs.appendChild(song)
+        })
+    })
+}
+
+function showTracks() {
+    samesongs.innerHTML = "";
+    similar.tracks.forEach(function (s) {
+        var elem = document.createElement("div")
+        elem.classList = "song"
+        elem.innerHTML = `<img class="icon" src="${s.icon}" /><div style="text-align:start"><span class="title">${s.title}</span><br><span class="artists">${s.artists}</span></div>`
+        samesongs.appendChild(elem)
+    })
 }

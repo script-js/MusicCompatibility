@@ -83,6 +83,11 @@ body {
     aspect-ratio: 1 / 1;
 }
 
+.playlist.header {
+    border-bottom: 1px solid white;
+    display: block;
+}
+
 
 
 @keyframes fadein {
@@ -119,7 +124,7 @@ input,button {
     margin-bottom: 10px;
 }
 
-#samesongs {
+.samesongs {
     float: right;
     width: 50%;
     margin: 20px;
@@ -143,6 +148,18 @@ input,button {
     width: fit-content;
     margin: 30px;
     animation: fadein 1.5s;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: ease 100ms;
+}
+
+.artist:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.artist.selected {
+    background-color: whitesmoke;
+    color: black;
 }
 
 #results {
