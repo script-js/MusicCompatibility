@@ -56,6 +56,10 @@ body {
     text-decoration: none;
 }
 
+.song {
+    transition: ease 100ms;
+}
+
 .song:hover {
     opacity: 0.5;
 }
