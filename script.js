@@ -69,10 +69,10 @@ async function getList(list) {
             if (data.tracks.next) {
                 await getPage(data.tracks.next, playlists.length - 1)
             }
-                var elem = document.createElement("div")
-                elem.classList = "playlist"
-                elem.innerHTML = `<img class="icon" src="${plist.icon}" /><div style="text-align:start"><span class="title">${plist.name}</span><br><span class="artists">${plist.author}</span></div>`
-                listViewer.appendChild(elem)
+            var elem = document.createElement("div")
+            elem.classList = "playlist"
+            elem.innerHTML = `<img class="icon" src="${plist.icon}" /><div style="text-align:start"><span class="title">${plist.name}</span><br><span class="artists">${plist.author}</span></div>`
+            listViewer.appendChild(elem)
             resolve()
         }
     })
@@ -209,7 +209,7 @@ async function showData() {
         similar.artists.forEach(function (a) {
             var elem = document.createElement("div")
             elem.classList = "artist"
-            elem.onclick = function() {showArtistSongs(this)}
+            elem.onclick = function () { showArtistSongs(this) }
             elem.innerHTML = `<img class="icon" src="${a.icon}" /><span class="title">${a.name}</span>`
             sameartists.appendChild(elem)
         })
@@ -247,25 +247,30 @@ function addList() {
 }
 
 function showArtistSongs(elem) {
+    Array.from(sameartists.querySelectorAll(".artist")).forEach(function (e) {
+        e.onclick = function () { showArtistSongs(elem) }
+        e.classList = "artist"
+    })
     var artistName = elem.querySelector(".title").innerText;
     elem.classList = "artist selected"
-    elem.onclick = function() {
+    elem.onclick = function () {
         showTracks()
-        elem.onclick = function() {showArtistSongs(elem)}
+        elem.onclick = function () { showArtistSongs(elem) }
         elem.classList = "artist"
     }
     samesongs.innerHTML = "";
-    playlists.forEach(function(p) {
+    playlists.forEach(function (p) {
         var header = document.createElement("div")
         header.classList = "playlist header"
         header.innerHTML = `<img class="icon" src="${p.icon}" /><div style="text-align:start"><span class="title">${p.name}</span><br><span class="artists">${p.author}</span></div>`
         samesongs.appendChild(header)
-        songs.forEach(function(s) {
-            if (s.list == p.id && s.artists.includes(artistName))
-            var song = document.createElement("div")
-            song.classList = "song"
-            song.innerHTML = `<img class="icon" src="${s.icon}" /><div style="text-align:start"><span class="title">${s.title}</span><br><span class="artists">${s.artists}</span></div>`
-            samesongs.appendChild(song)
+        songs.forEach(function (s) {
+            if (s.list == p.id && s.artists.includes(artistName)) {
+                var song = document.createElement("div")
+                song.classList = "song"
+                song.innerHTML = `<img class="icon" src="${s.icon}" /><div style="text-align:start"><span class="title">${s.title}</span><br><span class="artists">${s.artists}</span></div>`
+                samesongs.appendChild(song)
+            }
         })
     })
 }
