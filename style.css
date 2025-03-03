@@ -196,3 +196,18 @@ button {
 .loginBtn {
     border-radius: 20px;
 }
+
+.left {
+    display: inline-block;
+    width: 30%;
+}
+
+@media only screen and (max-width: 600px) {
+    .samesongs {
+        width: 90% !important;
+    }
+
+    .left {
+        width: 100% !important;
+    }
+}
