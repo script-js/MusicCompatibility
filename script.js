@@ -248,15 +248,15 @@ function addList() {
 
 function showArtistSongs(elem) {
     Array.from(sameartists.querySelectorAll(".artist")).forEach(function (e) {
-        e.onclick = function () { showArtistSongs(elem) }
+        e.onclick = function () { showArtistSongs(this) }
         e.classList = "artist"
     })
     var artistName = elem.querySelector(".title").innerText;
     elem.classList = "artist selected"
     elem.onclick = function () {
         showTracks()
-        elem.onclick = function () { showArtistSongs(elem) }
-        elem.classList = "artist"
+        this.onclick = function () { showArtistSongs(this) }
+        this.classList = "artist"
     }
     samesongs.innerHTML = "";
     playlists.forEach(function (p) {
