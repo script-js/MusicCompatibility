@@ -50,7 +50,7 @@ async function getList(list) {
                         artists: artistString,
                         icon: k.track.album.images[0].url,
                         title: id,
-                        list
+                        url: k.track.external_urls.spotify
                     })
                 }
                 k.track.artists.forEach(function (artist) {
@@ -87,7 +87,7 @@ async function getPage(url, index) {
         });
         var data = await response.json();
         if (data.error) {
-            if (data.error == "The access token expired") {
+            if (data.error.message == "The access token expired") {
                 sessionStorage.removeItem("accessToken")
                 spotifyAuth()
             } else {
@@ -103,8 +103,7 @@ async function getPage(url, index) {
                     songs.push({
                         artists: artistString,
                         icon: k.track.album.images[0].url,
-                        title: id,
-                        list
+                        title: id
                     })
                 }
                 k.track.artists.forEach(function (artist) {
@@ -133,11 +132,10 @@ function getScore() {
     var percent = Math.ceil((trackCompat / 2) + (artistCompat / 2))
     const circularProgress = document.querySelectorAll(".circular-progress");
     if (!percent) { percent = 0 }
-    console.log(percent)
+    console.log(trackCompat,artistCompat)
 
     Array.from(circularProgress).forEach((progressBar) => {
         const progressValue = progressBar.querySelector(".percentage");
-        const innerCircle = progressBar.querySelector(".inner-circle");
         let startValue = 0,
             progressColor = progressBar.getAttribute("data-progress-color");
         const progress = setInterval(() => {
@@ -265,8 +263,10 @@ function showArtistSongs(elem) {
         header.innerHTML = `<img class="icon" src="${p.icon}" /><div style="text-align:start"><span class="title">${p.name}</span><br><span class="artists">${p.author}</span></div>`
         samesongs.appendChild(header)
         songs.forEach(function (s) {
-            if (s.list == p.id && s.artists.includes(artistName)) {
-                var song = document.createElement("div")
+            if (p.tracks.includes(s.title + s.artists) && s.artists.includes(artistName)) {
+                var song = document.createElement("a")
+                song.href = s.url
+                song.target = "_blank"
                 song.classList = "song"
                 song.innerHTML = `<img class="icon" src="${s.icon}" /><div style="text-align:start"><span class="title">${s.title}</span><br><span class="artists">${s.artists}</span></div>`
                 samesongs.appendChild(song)
@@ -278,7 +278,9 @@ function showArtistSongs(elem) {
 function showTracks() {
     samesongs.innerHTML = "";
     similar.tracks.forEach(function (s) {
-        var elem = document.createElement("div")
+        var elem = document.createElement("a")
+        elem.href = s.url
+        elem.target = "_blank"
         elem.classList = "song"
         elem.innerHTML = `<img class="icon" src="${s.icon}" /><div style="text-align:start"><span class="title">${s.title}</span><br><span class="artists">${s.artists}</span></div>`
         samesongs.appendChild(elem)

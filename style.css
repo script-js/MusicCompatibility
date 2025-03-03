@@ -53,6 +53,11 @@ body {
     align-items: center;
     display: flex;
     animation: fadein 1.5s;
+    text-decoration: none;
+}
+
+.song:hover {
+    opacity: 0.5;
 }
 
 .playlist {
