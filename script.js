@@ -126,6 +126,7 @@ async function getPage(url, index) {
 
 function getScore() {
     var trackCompat = (similar.tracks.length / (songs.length / 2)) * 100
+    if (trackCompat > 100) {trackCompat = 100}
     var artistCompat = (similar.artists.length / artists.length) * 100;
     var percent = Math.ceil((trackCompat / 2) + (artistCompat / 2))
     const circularProgress = document.querySelectorAll(".circular-progress");
