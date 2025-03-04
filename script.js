@@ -274,7 +274,7 @@ function showArtistSongs(elem) {
         header.innerHTML = `<img class="icon" src="${p.icon}" /><div style="text-align:start"><span class="title">${p.name}</span><br><span class="artists">${p.author}</span></div>`
         samesongs.appendChild(header)
         songs.forEach(function (s) {
-            if (p.tracks.includes(s.title + s.artists) && s.artists.includes(artistName)) {
+            if (p.tracks.includes(s.title + s.artists) && s.artists.includes(artistName.replaceAll(",",", "))) {
                 var song = document.createElement("a")
                 song.href = s.url
                 song.target = "_blank"
