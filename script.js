@@ -86,8 +86,9 @@ async function getPage(url, index) {
         });
         var data = await response.json();
         if (data.error) {
+            console.error(data);
+            console.log(data.error.message,data.error.message == "The access token expired")
             if (data.error.message == "The access token expired") {
-                sessionStorage.removeItem("accessToken")
                 spotifyAuth()
             } else {
                 alert("Error getting playlist: " + data.error.message)
