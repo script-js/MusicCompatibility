@@ -130,7 +130,7 @@ function getScore() {
     var percent = Math.ceil((trackCompat / 2) + (artistCompat / 2))
     const circularProgress = document.querySelectorAll(".circular-progress");
     if (!percent) { percent = 0 }
-    console.log(trackCompat,artistCompat)
+    console.log(trackCompat, artistCompat)
 
     Array.from(circularProgress).forEach((progressBar) => {
         const progressValue = progressBar.querySelector(".percentage");
@@ -225,6 +225,7 @@ async function start() {
     chooser.style.display = "none"
     progress.style.display = "block"
     var lists = Array.from(chooser.querySelectorAll("input"));
+    sessionStorage.setItem("lists", lists.map((x) => x.value));
     progbar.max = lists.length
     for (var i = 0; i < lists.length; i++) {
         var link = lists[i].value;
@@ -236,10 +237,22 @@ async function start() {
     setTimeout(showData, 3)
 }
 
-function addList() {
+function addList(val) {
     var newip = document.createElement("input")
     newip.placeholder = "Playlist URL"
+    newip.onclick = function () { this.select() }
+    if (val) {
+        newip.value = val
+    }
     inputs.appendChild(newip)
+}
+if (sessionStorage.getItem("lists")) {
+    sessionStorage.getItem("lists").split(",").forEach(function(v) {
+        addList(v)
+    })
+} else {
+    addList()
+    addList()
 }
 
 function showArtistSongs(elem) {
