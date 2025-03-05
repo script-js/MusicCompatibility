@@ -8,12 +8,34 @@ var similar = {
 };
 var accessToken = localStorage.getItem("accessToken")
 
-if (!accessToken) {
-    chooser.innerHTML = `<button onclick="spotifyAuth()" class="loginBtn">
-    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect x="0" fill="none" width="20" height="20"></rect> <g> <path d="M10 2c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm3.7 11.5c-.1.2-.5.3-.7.2-2.1-1.2-4.7-1.5-7-.8-.3 0-.5-.1-.6-.4 0-.2.1-.5.4-.6 2.6-.8 5.4-.4 7.8.9.1.2.2.5.1.7zm1-2.1c-.1 0-.1 0 0 0-.2.3-.6.4-.9.2-2.4-1.4-5.3-1.7-8-.9-.3.1-.7-.1-.8-.4-.1-.4.1-.7.4-.9 3-.9 6.3-.5 9 1.1.3.2.4.6.3.9zm0-2.3c-2.6-1.5-6.8-1.7-9.3-.9-.4.1-.8-.1-.9-.5-.1-.4.1-.8.5-1 2.8-.8 7.5-.7 10.5 1.1.4.2.5.7.3 1-.3.4-.7.5-1.1.3z"></path> </g> </g></svg>
-    Log in to Spotify
-    </button>
-    `
+async function getUserLists() {
+    var response = await fetch('https://api.spotify.com/v1/playlists/' + list, {
+        headers: {
+            Authorization: 'Bearer ' + accessToken
+        }
+    });
+    var data = await response.json();
+    if (data.error) {
+        if (data.error.message == "The access token expired") {
+            localStorage.removeItem("accessToken")
+            location.reload()
+        } else {
+            alert("Error getting library: " + data.error.message)
+        }
+    } else {
+        if (data.items.length > 0) {
+            data.items.forEach(function (p) {
+                var elem = document.createElement("div")
+                elem.classList = "playlist clickable"
+                elem.onclick = function () { addList(p.id) }
+                elem.innerHTML = `<img class="icon" src="${p.images[0].url}" /><div style="text-align:start"><span class="title">${p.name}</span></div>`
+                myLists.appendChild(elem)
+            })
+        } else {
+            myLists.innerHTML = "No playlists"
+            addList()
+        }
+    }
 }
 
 async function getList(list) {
@@ -68,8 +90,9 @@ async function getList(list) {
             if (data.tracks.next) {
                 await getPage(data.tracks.next, playlists.length - 1)
             }
-            var elem = document.createElement("div")
-            elem.classList = "playlist"
+            var elem = document.createElement("a")
+            elem.classList = "playlist clickable"
+            elem.href = data.external_urls.spotify
             elem.innerHTML = `<img class="icon" src="${plist.icon}" /><div style="text-align:start"><span class="title">${plist.name}</span><br><span class="artists">${plist.author}</span></div>`
             listViewer.appendChild(elem)
             resolve()
@@ -126,7 +149,7 @@ async function getPage(url, index) {
 
 function getScore() {
     var trackCompat = (similar.tracks.length / (songs.length / 2)) * 100
-    if (trackCompat > 100) {trackCompat = 100}
+    if (trackCompat > 100) { trackCompat = 100 }
     var artistCompat = (similar.artists.length / artists.length) * 100;
     var percent = Math.ceil((trackCompat / 2) + (artistCompat / 2))
     const circularProgress = document.querySelectorAll(".circular-progress");
@@ -247,12 +270,12 @@ function addList(val) {
     }
     inputs.appendChild(newip)
 }
+
 if (sessionStorage.getItem("lists")) {
-    sessionStorage.getItem("lists").split(",").forEach(function(v) {
+    sessionStorage.getItem("lists").split(",").forEach(function (v) {
         addList(v)
     })
 } else {
-    addList()
     addList()
 }
 
@@ -275,7 +298,7 @@ function showArtistSongs(elem) {
         header.innerHTML = `<img class="icon" src="${p.icon}" /><div style="text-align:start"><span class="title">${p.name}</span><br><span class="artists">${p.author}</span></div>`
         samesongs.appendChild(header)
         songs.forEach(function (s) {
-            if (p.tracks.includes(s.title + s.artists) && s.artists.includes(artistName.replaceAll(",",", "))) {
+            if (p.tracks.includes(s.title + s.artists) && s.artists.includes(artistName.replaceAll(",", ", "))) {
                 var song = document.createElement("a")
                 song.href = s.url
                 song.target = "_blank"
@@ -297,4 +320,13 @@ function showTracks() {
         elem.innerHTML = `<img class="icon" src="${s.icon}" /><div style="text-align:start"><span class="title">${s.title}</span><br><span class="artists">${s.artists}</span></div>`
         samesongs.appendChild(elem)
     })
+}
+
+if (!accessToken) {
+    chooser.innerHTML = `<button onclick="spotifyAuth()" class="loginBtn">
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect x="0" fill="none" width="20" height="20"></rect> <g> <path d="M10 2c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm3.7 11.5c-.1.2-.5.3-.7.2-2.1-1.2-4.7-1.5-7-.8-.3 0-.5-.1-.6-.4 0-.2.1-.5.4-.6 2.6-.8 5.4-.4 7.8.9.1.2.2.5.1.7zm1-2.1c-.1 0-.1 0 0 0-.2.3-.6.4-.9.2-2.4-1.4-5.3-1.7-8-.9-.3.1-.7-.1-.8-.4-.1-.4.1-.7.4-.9 3-.9 6.3-.5 9 1.1.3.2.4.6.3.9zm0-2.3c-2.6-1.5-6.8-1.7-9.3-.9-.4.1-.8-.1-.9-.5-.1-.4.1-.8.5-1 2.8-.8 7.5-.7 10.5 1.1.4.2.5.7.3 1-.3.4-.7.5-1.1.3z"></path> </g> </g></svg>
+    Log in to Spotify
+    </button>
+    `
+    getUserLists()
 }

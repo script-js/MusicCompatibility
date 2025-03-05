@@ -62,6 +62,12 @@ body {
 
 .song:hover {
     opacity: 0.5;
+    cursor: pointer;
+}
+
+.playlist.clickable:hover {
+    opacity: 0.5;
+    cursor: pointer;
 }
 
 .playlist {
@@ -210,4 +216,9 @@ button {
     .left {
         width: 100% !important;
     }
+}
+
+#myLists {
+    margin: auto;
+    width: 70%;
 }

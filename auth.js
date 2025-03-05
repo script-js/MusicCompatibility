@@ -34,6 +34,7 @@ async function spotifyAuth() {
         response_type: 'code',
         client_id: clientId,
         code_challenge_method: 'S256',
+        scope: "playlist-read-private",
         code_challenge: codeChallenge,
         redirect_uri: redirectUri,
     }
