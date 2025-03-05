@@ -9,7 +9,7 @@ var similar = {
 var accessToken = localStorage.getItem("accessToken")
 
 async function getUserLists() {
-    var response = await fetch('https://api.spotify.com/v1/playlists/' + list, {
+    var response = await fetch('https://api.spotify.com/v1/me/playlists', {
         headers: {
             Authorization: 'Bearer ' + accessToken
         }
