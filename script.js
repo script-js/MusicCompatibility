@@ -264,7 +264,12 @@ async function start() {
 function addList(val) {
     var newip = document.createElement("input")
     newip.placeholder = "Playlist URL"
-    newip.onclick = function () { this.select() }
+    newip.onclick = function () {
+        this.select()
+        if (!this.value) {
+            this.remove()
+        }
+    }
     if (val) {
         newip.value = val
     }
