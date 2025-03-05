@@ -328,5 +328,6 @@ if (!accessToken) {
     Log in to Spotify
     </button>
     `
+} else {
     getUserLists()
 }
