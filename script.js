@@ -9,6 +9,7 @@ var similar = {
 var accessToken = localStorage.getItem("accessToken")
 
 async function getUserLists() {
+    myLists.innerHTML = "";
     var response = await fetch('https://api.spotify.com/v1/me/playlists', {
         headers: {
             Authorization: 'Bearer ' + accessToken
@@ -262,10 +263,17 @@ async function start() {
 }
 
 function addList(val) {
+    Array.from(chooser.querySelectorAll("input")).forEach(function(e) {
+        if (!e.value) {
+            e.remove()
+        }
+    })
     var newip = document.createElement("input")
     newip.placeholder = "Playlist URL"
     newip.onclick = function () {
         this.select()
+    }
+    newip.onchange = function() {
         if (!this.value) {
             this.remove()
         }
