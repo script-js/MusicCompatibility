@@ -26,7 +26,7 @@ async function getUserLists() {
         if (data.items.length > 0) {
             data.items.forEach(function (p) {
                 var elem = document.createElement("div")
-                elem.classList = "playlist clickable"
+                elem.classList = "playlist clickable library"
                 elem.onclick = function () { addList(p.id) }
                 elem.innerHTML = `<img class="icon" src="${p.images[0].url}" /><div style="text-align:start"><span class="title">${p.name}</span></div>`
                 myLists.appendChild(elem)

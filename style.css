@@ -47,7 +47,8 @@ body {
     aspect-ratio: 1 / 1;
 }
 
-.song,.playlist {
+.song,
+.playlist {
     height: 75px;
     width: 100%;
     align-items: center;
@@ -68,6 +69,17 @@ body {
 .playlist.clickable:hover {
     opacity: 0.5;
     cursor: pointer;
+}
+
+.playlist.clickable {
+    transition: ease 100ms;
+}
+
+.playlist.library {
+    border: 1px solid white;
+    padding-right: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
 
 .playlist {
@@ -120,7 +132,7 @@ body {
 @keyframes loadin {
     0% {
         opacity: 0;
-        transform: translate(0,10%);
+        transform: translate(0, 10%);
     }
 
     100% {
@@ -133,7 +145,8 @@ input {
     margin: auto;
 }
 
-input,button {
+input,
+button {
     background-color: #141414;
     border: 1px solid white;
     padding: 10px;
