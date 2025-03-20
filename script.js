@@ -17,7 +17,7 @@ async function getUserLists() {
     });
     var data = await response.json();
     if (data.error) {
-        if (data.error.message == "The access token expired") {
+        if (data.error.message == "The access token expired" || data.error.message == "Invalid access token") {
             localStorage.removeItem("accessToken")
             location.reload()
         } else {
