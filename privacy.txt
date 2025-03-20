@@ -1,0 +1,7 @@
+Privacy Policy
+--------------------------------------
+I do not collect or use any information from Spotify. This tool does not have any servers or databases to store data. I only include a privacy policy because Spotify requires it for unlimited users. This tool is open-source and the code can be viewed at https://github.com/script-js/MusicCompatibility.
+
+Permissions Used
+View your Spotify account data: Default permission required to access anything on Spotify
+View your activity on Spotify: Show your playlists for easy access
