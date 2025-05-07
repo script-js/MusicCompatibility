@@ -119,7 +119,7 @@ async function getPage(url, index) {
         } else {
             console.log(data)
             data.items.forEach(function (k) {
-                if (track) {
+                if (k.track) {
                 var id = k.track.name
                 var artistString = k.track.artists.map((x) => x.name).toString().replaceAll(",", ", ")
                 playlists[index].tracks.push(id + artistString)
